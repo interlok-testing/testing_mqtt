@@ -16,12 +16,14 @@ The second workflow is polling the file system for new files and send it's conte
 ```mermaid
 graph LR
   subgraph FS to MQTT
+    direction LR
     FS2[File System] --> FS_C(FS Consumer)
     FS_C --> SC2(Service Collection)
     SC2 --> MQTT_P(MQTT Producer)
     MQTT_P --> MQTT_B2[MQTT Broker]
   end
   subgraph MQTT to FS
+    direction LR
     MQTT_B1[MQTT Broker] --> MQTT_C(MQTT Consumer)
     MQTT_C --> SC1(Service Collection)
     SC1 --> FS_P(FS Producer)
