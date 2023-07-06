@@ -1,5 +1,8 @@
 # MQTT Testing
 
+[![license](https://img.shields.io/github/license/interlok-testing/mqtt-testing.svg)](https://github.com/interlok-testing/mqtt-testing/blob/develop/LICENSE)
+[![Actions Status](https://github.com/interlok-testing/mqtt-testing/actions/workflows/gradle-build.yml/badge.svg)](https://github.com/interlok-testing/mqtt-testing/actions/workflows/gradle-build.yml)
+
 Project tests interlok-mqtt features
 
 ## What it does
