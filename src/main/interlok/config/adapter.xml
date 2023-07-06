@@ -1,0 +1,134 @@
+<adapter>
+  <unique-id>mqtt-to-fs-testing</unique-id>
+  <start-up-event-imp>com.adaptris.core.event.StandardAdapterStartUpEvent</start-up-event-imp>
+  <heartbeat-event-imp>com.adaptris.core.HeartbeatEvent</heartbeat-event-imp>
+  <shared-components>
+    <connections>
+      <mqtt-connection>
+        <unique-id>mqtt-connection</unique-id>
+        <server-uri>${mqttUrl}</server-uri>
+        <protocol-version>DEFAULT</protocol-version>
+        <clean-session>true</clean-session>
+        <connection-timeout>
+          <unit>SECONDS</unit>
+          <interval>10</interval>
+        </connection-timeout>
+        <ssl-properties/>
+      </mqtt-connection>
+    </connections>
+    <services/>
+  </shared-components>
+  <event-handler class="default-event-handler">
+    <unique-id>DefaultEventHandler</unique-id>
+    <connection class="null-connection">
+      <unique-id>sick-volhard</unique-id>
+    </connection>
+    <producer class="null-message-producer">
+      <unique-id>hungry-joliot</unique-id>
+    </producer>
+  </event-handler>
+  <message-error-handler class="null-processing-exception-handler">
+    <unique-id>jolly-booth</unique-id>
+  </message-error-handler>
+  <failed-message-retrier class="no-retries">
+    <unique-id>desperate-swartz</unique-id>
+  </failed-message-retrier>
+  <channel-list>
+    <channel>
+      <consume-connection class="shared-connection">
+        <lookup-name>mqtt-connection</lookup-name>
+      </consume-connection>
+      <produce-connection class="null-connection">
+        <unique-id>silly-perlman</unique-id>
+      </produce-connection>
+      <workflow-list>
+        <standard-workflow>
+          <consumer class="mqtt-consumer">
+            <unique-id>Source Topic</unique-id>
+            <topic>${topicSource}</topic>
+          </consumer>
+          <service-collection class="service-list">
+            <unique-id>trusting-rosalind</unique-id>
+            <services/>
+          </service-collection>
+          <producer class="fs-producer">
+            <unique-id>berserk-swanson</unique-id>
+            <create-dirs>true</create-dirs>
+            <fs-worker class="fs-nio-worker"/>
+            <filename-creator class="formatted-filename-creator">
+              <filename-format>%1$s</filename-format>
+            </filename-creator>
+            <base-directory-url>${fsDir}</base-directory-url>
+          </producer>
+          <unique-id>mqtt-to-fs</unique-id>
+          <message-metrics-interceptor>
+            <unique-id>mqtt-to-fs-MessageMetrics</unique-id>
+            <timeslice-duration>
+              <unit>MINUTES</unit>
+              <interval>5</interval>
+            </timeslice-duration>
+            <timeslice-history-count>12</timeslice-history-count>
+          </message-metrics-interceptor>
+          <in-flight-workflow-interceptor>
+            <unique-id>mqtt-to-fs-InFlight</unique-id>
+          </in-flight-workflow-interceptor>
+        </standard-workflow>
+      </workflow-list>
+      <unique-id>mqtt-to-fs</unique-id>
+      <comments>Channel that listen on an mqtt topic and save the message in the file system</comments>
+    </channel>
+    <channel>
+      <consume-connection class="null-connection">
+        <unique-id>sad-meitner</unique-id>
+      </consume-connection>
+      <produce-connection class="shared-connection">
+        <lookup-name>mqtt-connection</lookup-name>
+      </produce-connection>
+      <workflow-list>
+        <standard-workflow>
+          <consumer class="fs-consumer">
+            <unique-id>read-fs</unique-id>
+            <poller class="fixed-interval-poller">
+              <poll-interval>
+                <unit>SECONDS</unit>
+                <interval>5</interval>
+              </poll-interval>
+            </poller>
+            <create-dirs>true</create-dirs>
+            <file-sorter class="fs-sort-none"/>
+            <base-directory-url>${fsDir}</base-directory-url>
+            <wip-suffix>.wip</wip-suffix>
+          </consumer>
+          <service-collection class="service-list">
+            <unique-id>romantic-jepsen</unique-id>
+            <services/>
+          </service-collection>
+          <producer class="mqtt-producer">
+            <unique-id>destination-topic</unique-id>
+            <qos>1</qos>
+            <retained>false</retained>
+            <topic>${topicDest}</topic>
+          </producer>
+          <unique-id>fs-to-mqtt</unique-id>
+          <message-metrics-interceptor>
+            <unique-id>fs-to-mqtt-MessageMetrics</unique-id>
+            <timeslice-duration>
+              <unit>MINUTES</unit>
+              <interval>5</interval>
+            </timeslice-duration>
+            <timeslice-history-count>12</timeslice-history-count>
+          </message-metrics-interceptor>
+          <in-flight-workflow-interceptor>
+            <unique-id>fs-to-mqtt-InFlight</unique-id>
+          </in-flight-workflow-interceptor>
+        </standard-workflow>
+      </workflow-list>
+      <unique-id>fs-to-mqtt</unique-id>
+      <comments>Channel that check a file and send its content on an mqtt topic</comments>
+    </channel>
+  </channel-list>
+  <message-error-digester class="standard-message-error-digester">
+    <unique-id>ErrorDigest</unique-id>
+    <digest-max-size>100</digest-max-size>
+  </message-error-digester>
+</adapter>

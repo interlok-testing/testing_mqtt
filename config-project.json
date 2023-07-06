@@ -1,0 +1,21 @@
+{
+  "name" : "mqtt-to-fs-testing",
+  "variableSets" : {
+    "default" : { }
+  },
+  "variableXpaths" : {
+    "/adapter/shared-components/connections/mqtt-connection[unique-id=\"mqtt-connection\"]/server-uri" : "${mqttUrl}",
+    "/adapter/channel-list/channel[unique-id=\"fs-to-mqtt\"]/workflow-list/standard-workflow[unique-id=\"fs-to-mqtt\"]/consumer/base-directory-url" : "${fsDir}",
+    "/adapter/channel-list/channel[unique-id=\"mqtt-to-fs\"]/workflow-list/standard-workflow[unique-id=\"mqtt-to-fs\"]/producer/base-directory-url" : "${fsDir}",
+    "/adapter/channel-list/channel[unique-id=\"mqtt-to-fs\"]/workflow-list/standard-workflow[unique-id=\"mqtt-to-fs\"]/consumer/topic" : "${topicSource}",
+    "/adapter/channel-list/channel[unique-id=\"fs-to-mqtt\"]/workflow-list/standard-workflow[unique-id=\"fs-to-mqtt\"]/producer/topic" : "${topicDest}"
+  },
+  "uidInXincludeCompntListFileName" : false,
+  "xincludeXpaths" : { },
+  "additionalFiles" : {
+    "log4j2.xml" : "log4j2.xml",
+    "bootstrap.properties" : "bootstrap.properties"
+  },
+  "optionalComponentsInUse" : [ "com.adaptris:interlok-mqtt:5.0-SNAPSHOT" ],
+  "structured" : true
+}
