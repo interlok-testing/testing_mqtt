@@ -58,7 +58,7 @@ topicDest=destination
 
 ## Try it
 
-For simplicity I used a test MQTT broker made available by EMQX (https://www.emqx.io/mqtt/public-mqtt5-broker) but any MQTT broken can be used.
+For simplicity I used a test MQTT broker made available by EMQX (https://www.emqx.com/en/mqtt/public-mqtt5-broker) but any MQTT broken can be used.
 
 Once the adapter is up and running you can send a message to the topicSource and check that you receive the same message on the topicDest.
 If you are using EMQX you can use their toolkit http://tools.emqx.io/.
