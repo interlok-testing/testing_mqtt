@@ -1,7 +1,7 @@
 # MQTT Testing
 
-[![license](https://img.shields.io/github/license/interlok-testing/mqtt-testing.svg)](https://github.com/interlok-testing/mqtt-testing/blob/develop/LICENSE)
-[![Actions Status](https://github.com/interlok-testing/mqtt-testing/actions/workflows/gradle-build.yml/badge.svg)](https://github.com/interlok-testing/mqtt-testing/actions/workflows/gradle-build.yml)
+[![license](https://img.shields.io/github/license/interlok-testing/testing_mqtt.svg)](https://github.com/interlok-testing/testing_mqtt/blob/develop/LICENSE)
+[![Actions Status](https://github.com/interlok-testing/testing_mqtt/actions/workflows/gradle-build.yml/badge.svg)](https://github.com/interlok-testing/testing_mqtt/actions/workflows/gradle-build.yml)
 
 Project tests interlok-mqtt features
 
